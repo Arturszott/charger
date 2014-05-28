@@ -126,7 +126,7 @@ $(document).ready(function($) {
             y: game.input.y
         }
 
-        if (game.input.mousePointer.isDown) {
+        if (game.input.activePointer.isDown) {
             if (cords.x !== game.prevCords.x || cords.y !== game.prevCords.y) {
 
                 config.chargeProgress = config.chargeProgress + 0.1 * config.chargeSpeed;
