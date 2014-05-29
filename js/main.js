@@ -1,6 +1,15 @@
 // init phaser game
+var batterylvl;
+
+window.addEventListener("batterystatus", onBatteryStatus, false);
+
+function onBatteryStatus(info) {
+    batterylvl = info.level;
+}
 
 $(document).ready(function($) {
+
+
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
         preload: preload,
         create: create,
