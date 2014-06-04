@@ -8,12 +8,12 @@ document.addEventListener("deviceready", function(info) {
 function onBatteryStatus(info) {
     batterylvl = info.level;
     config.percent = batterylvl;
-    navigator.notification.alert('battery');
+    console.log('trololo')
 }
 
 $(document).ready(function($) {
 
-    navigator.notification.alert('loaded');
+    console.log('loaded')
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
         preload: preload,
         create: create,
