@@ -7,9 +7,9 @@ document.addEventListener("deviceready", function(info) {
 
 function onBatteryStatus(info) {
     window.location='./battery.html';
+    console.log('trololo');
     batterylvl = info.level;
     config.percent = batterylvl;
-    console.log('trololo')
 }
 
 $(document).ready(function($) {
