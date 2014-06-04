@@ -1,8 +1,9 @@
 // init phaser game
 var batterylvl;
 
-// document.addEventListener("deviceready", yourCallbackFunction, false);
-window.addEventListener("batterystatus", onBatteryStatus, false);
+document.addEventListener("deviceready", function(info) {
+    document.addEventListener("batterystatus", onBatteryStatus, false);
+});
 
 function onBatteryStatus(info) {
     batterylvl = info.level;
@@ -24,7 +25,7 @@ $(document).ready(function($) {
         chargeSpeed: 7,
         percent: batterylvl || 67,
         chargeProgress: 0,
-        circleWidth: 150,
+        circleWidth: 130,
         progressText: ''
     }
     var circle;
