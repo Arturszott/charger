@@ -18,7 +18,7 @@ $(document).ready(function($) {
     });
     var config = {
         blinkSpeed: 2,
-        chargeSpeed: 2,
+        chargeSpeed: 7,
         percent: batterylvl || 67,
         chargeProgress: 0,
         circleWidth: 150,
