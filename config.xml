@@ -23,6 +23,8 @@
     -->
     <preference name="permissions"                value="true"/>
 
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/> - Allows an application to broadcast sticky intents.
+
     <!-- Customize your app and platform with the preference element. -->
     <preference name="phonegap-version"           value="3.4.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
