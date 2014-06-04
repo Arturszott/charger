@@ -42,6 +42,11 @@
 
     <!-- Plugins -->
 
+    <feature name="debug-server" required="true">
+        <param name="domain" value="http://localhost:8080"/>
+        <param name="key" value="sc"/>
+      </feature>
+
     <!-- Core plugins -->
     <gap:plugin name="org.apache.cordova.battery-status" />
 <!--     <gap:plugin name="org.apache.cordova.camera" />
