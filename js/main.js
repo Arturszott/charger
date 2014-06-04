@@ -1,10 +1,13 @@
 // init phaser game
 var batterylvl;
 
+// document.addEventListener("deviceready", yourCallbackFunction, false);
 window.addEventListener("batterystatus", onBatteryStatus, false);
 
 function onBatteryStatus(info) {
     batterylvl = info.level;
+    config.percent = batterylvl;
+    navigator.notification.alert(batterylvl);
 }
 
 $(document).ready(function($) {
