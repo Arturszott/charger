@@ -2,6 +2,7 @@
 var batterylvl;
 
 document.addEventListener("deviceready", function(info) {
+    console.log(info)
     document.addEventListener("batterystatus", onBatteryStatus, false);
 
 });
