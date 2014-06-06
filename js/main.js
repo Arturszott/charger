@@ -3,11 +3,12 @@ var batterylvl;
 
 document.addEventListener("deviceready", function(info) {
     document.addEventListener("batterystatus", onBatteryStatus, false);
+
 });
 
 function onBatteryStatus(info) {
     window.location='./battery.html';
-    console.log('trololo');
+    console.log(info);
     batterylvl = info.level;
     config.percent = batterylvl;
 }
