@@ -1,22 +1,24 @@
-// init phaser game
-var batterylvl;
-document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady(){
-    console.log(info);
-    console.log(Sysinfo);
-    console.log('device ready')
-    window.addEventListener("batterystatus", onBatteryStatus, false);
-}
-
-function onBatteryStatus(info) {
-    window.location='./battery.html';
-    console.log(info);
-    batterylvl = info.level;
-    config.percent = batterylvl;
-}
 
 $(document).ready(function($) {
+
+    // init phaser game
+    var batterylvl;
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady(){
+        console.log(info);
+        console.log(Sysinfo);
+        console.log('device ready')
+        window.addEventListener("batterystatus", onBatteryStatus, false);
+    }
+
+    function onBatteryStatus(info) {
+        window.location='./battery.html';
+        console.log(info);
+        batterylvl = info.level;
+        config.percent = batterylvl;
+    }
 
     console.log('loaded')
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
