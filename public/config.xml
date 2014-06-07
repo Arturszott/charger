@@ -48,7 +48,7 @@
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="com.ankamagames.plugins.sysinfo" />
     <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="com.borismus.webintent.WebIntent" />
+    <gap:plugin name="net.tunts.webintent" version="0.2.1" />
 <!--     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
