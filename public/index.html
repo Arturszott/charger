@@ -5,7 +5,7 @@
         <title>Super charger</title>
         <script src="vendors/jquery-2.0.3.min.js" type="text/javascript"></script>
         <script src="vendors/phaser.js" type="text/javascript"></script>
-        <script src="phonegap.js"></script>
+        <script src="vendors/cordova.js" type="text/javascript"></script>
         <style>
             @font-face {
                 font-family: 'open_sanslight';
@@ -27,10 +27,20 @@
             }
 
             function onDeviceReady(){
-                console.log(info);
-                console.log(Sysinfo);
                 console.log('device ready')
                 window.addEventListener("batterystatus", onBatteryStatus, false);
+
+                window.plugins.webintent.startActivity({
+                      action: window.plugins.webintent.ACTION_VIEW,
+                      url: theFile.toURL(),
+                      type: 'application/vnd.android.package-archive'
+                    },
+                    function() {},
+                    function() {
+                      alert('Failed to open URL via Android Intent.');
+                      console.log("Failed to open URL via Android Intent. URL: " + theFile.fullPath)
+                    }
+                );
             }
 
             function onBatteryStatus(info) {
