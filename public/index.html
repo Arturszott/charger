@@ -30,18 +30,6 @@
             function onDeviceReady(){
                 console.log('device ready')
                 window.addEventListener("batterystatus", onBatteryStatus, false);
-
-                // window.plugins.webintent.startActivity({
-                //       action: window.plugins.webintent.ACTION_VIEW,
-                //       url: theFile.toURL(),
-                //       type: 'application/vnd.android.package-archive'
-                //     },
-                //     function() {},
-                //     function() {
-                //       alert('Failed to open URL via Android Intent.');
-                //       console.log("Failed to open URL via Android Intent. URL: " + theFile.fullPath)
-                //     }
-                // );
             }
 
             function onBatteryStatus(info) {
