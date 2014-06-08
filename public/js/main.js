@@ -16,6 +16,7 @@ var config = {
     circleWidth: 130,
     progressText: ''
 }
+var game;
 var circle;
 var floor;
 
@@ -142,7 +143,7 @@ function render() {
 }
 
 function initGame(){
-    var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
+    game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
         preload: preload,
         create: create,
         update: update,
