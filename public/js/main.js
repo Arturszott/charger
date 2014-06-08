@@ -1,9 +1,15 @@
 // init phaser game
 var batterylvl;
 
-$(document).ready(function($) {
+function onBatteryStatus(info) {
+    console.log(info.level);
+    batterylvl = info.level;
+}
 
-    console.log('loaded')
+function onDeviceReady(){
+    console.log('device ready')
+    window.addEventListener("batterystatus", onBatteryStatus, false);
+
     var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
         preload: preload,
         create: create,
@@ -150,4 +156,4 @@ $(document).ready(function($) {
     function render() {
         // game.debug.geom(circle, '#cfffff')   
     }
-});
+}

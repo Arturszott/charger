@@ -24,19 +24,9 @@
         <script src="js/main.js" type="text/javascript"></script>
         <script>
             function onLoad() {
+                // main js 
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
-
-            function onDeviceReady(){
-                console.log('device ready')
-                window.addEventListener("batterystatus", onBatteryStatus, false);
-            }
-
-            function onBatteryStatus(info) {
-                console.log(info.level);
-                batterylvl = info.level;
-            }
-
         </script>
         
 
