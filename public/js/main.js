@@ -1,8 +1,19 @@
 // init phaser game
 var batterylvl;
 
+//  The Google WebFont Loader will look for this object, so create it before loading the script.
+WebFontConfig = {
+    //  'active' means all requested fonts have finished loading
+    //  We set a 1 second delay before calling 'createText'.
+    //  For some reason if we don't the browser cannot render the text the first time it's created.
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Open Sans']
+    }
+};
+
 function onBatteryStatus(info) {
-    console.log(info.level);
     batterylvl = info.level;
     config.percent = batterylvl;
     initGame();
@@ -10,11 +21,27 @@ function onBatteryStatus(info) {
 
 var config = {
     blinkSpeed: 2,
+    swipeSpeed: 0,
     chargeSpeed: 7,
     percent: batterylvl || 67,
     chargeProgress: 0,
     circleWidth: 130,
-    progressText: ''
+    progressText: '',
+    mainText: '',
+    swipinArray: [
+        'Yes... swipe more!',
+        'Do you feel the power?',
+        'Faster, please!',
+        'Kinetic energy is flowing...',
+        'Your battery is grateful.',
+        "Omg, it's working!",
+        "It's getting hotter..."
+    ],
+    notSwipinArray: [
+        'Your battery is sad.'
+    ],
+    coords: null
+
 }
 var game;
 var circle;
@@ -24,6 +51,11 @@ var graphics;
 var graphics2;
 
 function totalCircle(radius, sides) {
+    if(game.t2){
+       game.t2.setText(config.percent + "%"); 
+    }
+    if(game.finished) return false;
+
     if (graphics) graphics.destroy();
 
     graphics = game.add.graphics(game.world.centerX, game.world.centerY + 50);
@@ -41,9 +73,12 @@ function totalCircle(radius, sides) {
     }
 
     config.progressText.text = config.percent + '%';
+    
+    
 }
 
 function chargeProgressCircle(radius, sides) {
+    if(game.finished) return false;
     if (graphics2) graphics2.destroy();
 
     graphics2 = game.add.graphics(game.world.centerX, game.world.centerY + 50);
@@ -63,38 +98,72 @@ function chargeProgressCircle(radius, sides) {
 
 /////////////////// PRELOAD ///////////////////////
 function preload() {
-
-    //  37x45 is the size of each frame
-
-    //  There are 18 frames in the PNG - you can leave this value blank if the frames fill up the entire PNG, but in this case there are some
-    //  blank frames at the end, so we tell the loader how many to load
-
-    // game.load.spritesheet('trash', 'assets/trash.png', 64, 80, 6);
-
-    game.load.image('frame', 'assets/frame.png', 130, 61);
+    game.load.script('webfont', 'http://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+    game.load.spritesheet('frame', 'assets/frame.png', 130, 61, 4);
     game.load.image('hand', 'assets/swipe.png', 119, 72);
 }
 /////////////////// GAME CREATION ///////////////////////
-function create() {
-    this.game.stage.backgroundColor = '#23272b';
+
+function tweenBlink(obj, speed) {
+    return game.add.tween(obj).to({
+        alpha: 1
+    }, 1000 * (1 / (speed || config.blinkSpeed)), Phaser.Easing.Linear.None, true, 0, 1000, true);
+}
+
+
+function newText(text) {
+    if (config.mainText === text) {
+        return false;
+    } else {
+        var tween = game.add.tween(game.t1).to({
+            alpha: 0,
+            y: game.t1.y - 20
+        }, 300, Phaser.Easing.Linear.None, true);
+        config.mainText = text;
+        tween.onComplete.add(function() {
+            game.t1.setText(text);
+            game.t1.y += 20;
+            game.add.tween(game.t1).to({
+                alpha: 1
+            }, 300, Phaser.Easing.Linear.None, true);
+        });
+    }
+}
+
+function createText(){
 
     var percentStyle = {
-        font: "36px droid sans",
+        font: "36px Open Sans",
         fill: "#8798a9",
         align: "center"
     };
 
-    config.progressText = game.add.text(game.world.centerX, game.world.centerY - 30, '', percentStyle);
-    config.progressText.anchor.setTo(0.5, 0.5);
+    game.t2 = game.add.text(game.world.centerX, game.world.centerY - 30, '', percentStyle);
+    game.t2.setText(config.percent + "%");
+    game.t2.anchor.setTo(0.5, 0.5);
 
-    var mainText = "Swipe to charge\nthe battery!"
+    config.mainText = "Swipe to charge\nthe battery!";
+
     var style = {
-        font: "40px droid sans",
+        font: "36px Open Sans",
+        weight: 100,
         fill: "#fff",
         align: "center"
     };
-    var t1 = game.add.text(game.world.centerX, 40, mainText, style);
-    t1.anchor.setTo(0.5, 0);
+
+    game.t1 = game.add.text(game.world.centerX, 40, '', style);
+    game.t1.anchor.setTo(0.5, 0);
+    game.t1.alpha = 0;
+    game.t1.setText(config.mainText);
+    game.t1.y += 20;
+    game.add.tween(game.t1).to({
+        alpha: 1
+    }, 300, Phaser.Easing.Linear.None, true);
+}
+
+function create() {
+    this.game.stage.backgroundColor = '#23272b';
+    game._tweens = {};
 
 
 
@@ -103,46 +172,85 @@ function create() {
 
     // battery frame image
     var frame = this.game.add.sprite(game.world.centerX, game.world.centerY + 50, 'frame');
+
+    frame.animations.add('charge');
     frame.anchor.setTo(0.5, 0.5);
     frame.alpha = 0;
 
+    game.frame = frame;
 
-    function tweenBlink(obj, speed) {
-        game.add.tween(obj).to({
-            alpha: 1
-        }, 1000 * (1 / (speed || config.blinkSpeed)), Phaser.Easing.Linear.None, true, 0, 1000, true);
-    }
     // blink baterry frame
-    tweenBlink(frame);
+    game._tweens.frameBlink = tweenBlink(frame);
+    game._tweens.frameBlink.pause();
 }
 /////////////////// GAME LOOP ///////////////////////
+function getDist(position, target) {
+    return Math.sqrt(Math.pow((target.x - position.x), 2) + Math.pow((target.y - position.y), 2));
+}
+
 function update() {
-    var cords = {
-        x: game.input.x,
-        y: game.input.y
-    }
+    var position, distance;
+    if (game.input.activePointer.isDown && !game.finished) {
 
-    if (game.input.activePointer.isDown) {
-        if (cords.x !== game.prevCords.x || cords.y !== game.prevCords.y) {
+        position = {
+            x: game.input.x,
+            y: game.input.y
+        }
 
-            config.chargeProgress = config.chargeProgress + 0.1 * config.chargeSpeed;
+        game.position = game.position || position;
+        distance = getDist(game.position, position);
 
+
+        if (distance > 0) {
+            config.swipeSpeed = distance * 0.0015;
+            config.chargeProgress = config.chargeProgress + config.swipeSpeed * config.chargeSpeed;
+
+            if (game._tweens.frameBlink) {
+                game.frame.alpha = 0;
+                game.frame.animations.play('charge', 1, true);
+                game._tweens.frameBlink.resume();
+                game._tweens.frameBlink.isRunning = true;
+            }
+
+            // outer circle is full, let's modify the green one
             if (config.chargeProgress > 100) {
+                var randomSwipinText = config.swipinArray[Math.floor(Math.random() * config.swipinArray.length)];
+                newText(randomSwipinText);
+
                 config.chargeProgress = 0;
                 config.percent++;
 
-                totalCircle(config.circleWidth, 100);
+                if(config.percent >= 12){
+                    finishCharging();
+                } else {
+                    totalCircle(config.circleWidth, 100);
+                }
             }
             chargeProgressCircle(config.circleWidth + 20, 100);
+
+        }
+
+        game.position = position;
+    } else {
+        if (game._tweens.frameBlink && game._tweens.frameBlink.isRunning) {
+            game._tweens.frameBlink.pause();
+            game.frame.animations.stop();
+            game._tweens.frameBlink.isRunning = false;
+            game.frame.alpha = 1;
+
+            if(game.t1 && !game.finished){
+                var randomSwipinText = config.notSwipinArray[Math.floor(Math.random() * config.notSwipinArray.length)];
+                newText(randomSwipinText);
+            }
+            
+            // game._tweens.frameBlink.pause();
         }
     }
-
-    game.prevCords = cords;
-}
-function render() {
 }
 
-function initGame(){
+function render() {}
+
+function initGame() {
     game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
         preload: preload,
         create: create,
@@ -150,7 +258,18 @@ function initGame(){
         render: render
     });
 }
-function onDeviceReady(){
-    console.log('device ready')
+
+function finishCharging(){
+    game.t2.setText('100%')
+    newText('You battery is happy!\n Visit app later!');
+    graphics.alpha = 0;
+    graphics.destroy(true);
+    graphics2.destroy(true);
+    game.finished = true;
+}
+
+function onDeviceReady() {
+    console.log('device ready');
+    $('#initBtn').remove();
     window.addEventListener("batterystatus", onBatteryStatus, false);
 }
