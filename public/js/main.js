@@ -134,7 +134,7 @@ function createText(){
 
     var percentStyle = {
         font: "36px Open Sans",
-        fill: "#8798a9",
+        fill: "#fff",
         align: "center"
     };
 
@@ -145,7 +145,7 @@ function createText(){
     config.mainText = "Swipe to charge\nthe battery!";
 
     var style = {
-        font: "36px Open Sans",
+        font: "28px Open Sans",
         weight: 100,
         fill: "#fff",
         align: "center"
