@@ -220,7 +220,7 @@ function update() {
                 config.chargeProgress = 0;
                 config.percent++;
 
-                if(config.percent >= 12){
+                if(config.percent >= 100){
                     finishCharging();
                 } else {
                     totalCircle(config.circleWidth, 100);
