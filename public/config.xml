@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.arturszott.charger"
-        version   = "0.6.0">
+        version   = "1.0.0">
 
     <name>Super charger</name>
 
@@ -44,8 +44,8 @@
 
     <!-- Core plugins -->
     <gap:plugin name="org.apache.cordova.battery-status" />
-    <gap:plugin name="com.ankamagames.plugins.sysinfo" />
     <gap:plugin name="org.apache.cordova.device" />
+    <!-- <gap:plugin name="com.ankamagames.plugins.sysinfo" /> -->
     <!-- <gap:plugin name="net.tunts.webintent" version="0.2.1" /> -->
 <!--     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
