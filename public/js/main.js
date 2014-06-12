@@ -14,7 +14,7 @@ WebFontConfig = {
 };
 
 function onBatteryStatus(info) {
-    window.removeEventListener('batterystatus');
+    window.removeEventListener('batterystatus', onBatteryStatus, false);
 
     batterylvl = info.level;
     config.percent = batterylvl;
