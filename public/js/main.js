@@ -14,6 +14,8 @@ WebFontConfig = {
 };
 
 function onBatteryStatus(info) {
+    window.removeEventListener('batterystatus');
+
     batterylvl = info.level;
     config.percent = batterylvl;
     initGame();
