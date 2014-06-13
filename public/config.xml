@@ -9,7 +9,7 @@
     <name>Super charger</name>
 
     <description>
-        Yo dawg, dat app will charge ya phone!
+        Yo dawg, dat app will charge ya battery!
     </description>
 
     <author href="http://phonegap.com" email="support@phonegap.com">
@@ -43,11 +43,9 @@
 
 
     <!-- Core plugins -->
-    <gap:plugin name="org.apache.cordova.battery-status" />
-    <gap:plugin name="org.apache.cordova.device" />
-    <!-- <gap:plugin name="com.ankamagames.plugins.sysinfo" /> -->
-    <!-- <gap:plugin name="net.tunts.webintent" version="0.2.1" /> -->
-<!--     <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.battery-status" version="0.2.7" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+<!--<gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.contacts" />
