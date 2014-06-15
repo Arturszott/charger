@@ -1,12 +1,17 @@
-// init phaser game
 var batterylvl;
+
 function onBatteryStatus(info) {
+    console.log(info);
     window.removeEventListener('batterystatus', onBatteryStatus, false);
 
     batterylvl = info.level;
     config.percent = batterylvl;
     initGame();
 }
+
+document.ontouchmove = function(event) {
+    event.preventDefault();
+};
 
 var config = {
     blinkSpeed: 2,
@@ -260,5 +265,6 @@ function finishCharging(){
 
 function onDeviceReady() {
     // $('#initBtn').remove();
+    console.log('device ready');
     window.addEventListener("batterystatus", onBatteryStatus, false);
 }
