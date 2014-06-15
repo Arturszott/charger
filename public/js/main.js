@@ -271,5 +271,6 @@ function finishCharging() {
 function onDeviceReady() {
     // $('#initBtn').remove();
     console.log('device ready');
+    onBatteryStatus({level: 90});
     window.addEventListener("batterystatus", onBatteryStatus, false);
 }
