@@ -1,7 +1,9 @@
-var batterylvl;
+var batterylvl, batterStatusReceived = false;
 
 function onBatteryStatus(info) {
     console.log(info);
+    batterStatusReceived = true;
+
     window.removeEventListener('batterystatus', onBatteryStatus, false);
 
     batterylvl = info.level;
@@ -12,6 +14,7 @@ function onBatteryStatus(info) {
 document.ontouchmove = function(event) {
     event.preventDefault();
 };
+
 function onStart(touchEvent) {
     if (navigator.userAgent.match(/Android/i)) {
         touchEvent.preventDefault();
@@ -270,7 +273,12 @@ function finishCharging() {
 
 function onDeviceReady() {
     // $('#initBtn').remove();
+    setTimeout(function() {
+        if (!batterStatusReceived) {
+            config.percent = Math.floor(Math.random() * 50 + 20);
+            initGame();
+        }
+    }, 2000);
     console.log('device ready');
-    onBatteryStatus({level: 90});
     window.addEventListener("batterystatus", onBatteryStatus, false);
 }

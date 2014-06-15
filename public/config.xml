@@ -43,7 +43,7 @@
 
 
     <!-- Core plugins -->
-    <!-- <gap:plugin name="org.apache.cordova.battery-status" version="0.2.7" /> -->
+    <gap:plugin name="org.apache.cordova.battery-status" />
     <!-- <gap:plugin name="org.apache.cordova.device" version="0.2.8" /> -->
 <!--<gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
