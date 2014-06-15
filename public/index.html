@@ -7,16 +7,6 @@
         <script src="vendors/phaser.js" type="text/javascript"></script>
         <script src="cordova.js" type="text/javascript"></script>
         <style>
-            @font-face {
-                font-family: 'open_sanslight';
-                src: url('assets/opensans-light-webfont.eot');
-                src: url('assets/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
-                     url('assets/opensans-light-webfont.woff') format('woff'),
-                     url('assets/opensans-light-webfont.ttf') format('truetype'),
-                     url('assets/opensans-light-webfont.svg#open_sanslight') format('svg');
-                font-weight: normal;
-                font-style: normal;
-            }
             body {
                 margin: 0;
             }
@@ -24,7 +14,13 @@
         <script src="js/main.js" type="text/javascript"></script>
         <script>
             function onLoad() {
-                // main js 
+                // main js
+                var container = document.getElementById('game');
+
+                container.ontouchmove = function(e) {
+                    e.preventDefault();
+                }
+
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
         </script>

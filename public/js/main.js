@@ -9,10 +9,9 @@ function onBatteryStatus(info) {
     initGame();
 }
 
-document.addEventListener("touchstart", function(e) {
-    onStart(e);
-}, false);
-
+document.ontouchmove = function(event) {
+    event.preventDefault();
+};
 function onStart(touchEvent) {
     if (navigator.userAgent.match(/Android/i)) {
         touchEvent.preventDefault();
@@ -252,7 +251,7 @@ function update() {
 function render() {}
 
 function initGame() {
-    game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
+    game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'game', {
         preload: preload,
         create: create,
         update: update,
