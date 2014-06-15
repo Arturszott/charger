@@ -206,6 +206,9 @@ function update() {
 
         if (distance > 0) {
             config.swipeSpeed = distance * 0.0015;
+            if(game.notSwipinTimeout){
+                clearTimeout(game.notSwipinTimeout);
+            }
             config.chargeProgress = config.chargeProgress + config.swipeSpeed * config.chargeSpeed;
 
             if (game._tweens.frameBlink) {
@@ -242,11 +245,11 @@ function update() {
             game.frame.alpha = 1;
 
             if (game.t1 && !game.finished) {
-                var randomSwipinText = config.notSwipinArray[Math.floor(Math.random() * config.notSwipinArray.length)];
-                newText(randomSwipinText);
+                game.notSwipinTimeout = setTimeout(function() {
+                    var randomSwipinText = config.notSwipinArray[Math.floor(Math.random() * config.notSwipinArray.length)];
+                    newText(randomSwipinText);
+                }, 3000);
             }
-
-            // game._tweens.frameBlink.pause();
         }
     }
 }
@@ -254,7 +257,7 @@ function update() {
 function render() {}
 
 function initGame() {
-    game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.CANVAS, 'game', {
+    game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', {
         preload: preload,
         create: create,
         update: update,
