@@ -1,18 +1,5 @@
 // init phaser game
 var batterylvl;
-
-//  The Google WebFont Loader will look for this object, so create it before loading the script.
-WebFontConfig = {
-    //  'active' means all requested fonts have finished loading
-    //  We set a 1 second delay before calling 'createText'.
-    //  For some reason if we don't the browser cannot render the text the first time it's created.
-    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
-    //  The Google Fonts we want to load (specify as many as you like in the array)
-    google: {
-      families: ['Open Sans']
-    }
-};
-
 function onBatteryStatus(info) {
     window.removeEventListener('batterystatus', onBatteryStatus, false);
 
@@ -24,7 +11,7 @@ function onBatteryStatus(info) {
 var config = {
     blinkSpeed: 2,
     swipeSpeed: 0,
-    chargeSpeed: 7,
+    chargeSpeed: 9,
     percent: batterylvl || 67,
     chargeProgress: 0,
     circleWidth: 130,
@@ -100,7 +87,6 @@ function chargeProgressCircle(radius, sides) {
 
 /////////////////// PRELOAD ///////////////////////
 function preload() {
-    game.load.script('webfont', 'http://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     game.load.spritesheet('frame', 'assets/frame.png', 130, 61, 4);
     game.load.image('hand', 'assets/swipe.png', 119, 72);
 }
@@ -135,7 +121,7 @@ function newText(text) {
 function createText(){
 
     var percentStyle = {
-        font: "36px Open Sans",
+        font: "36px Roboto",
         fill: "#fff",
         align: "center"
     };
@@ -147,7 +133,7 @@ function createText(){
     config.mainText = "Swipe to charge\nthe battery!";
 
     var style = {
-        font: "28px Open Sans",
+        font: "28px Roboto",
         weight: 100,
         fill: "#fff",
         align: "center"
@@ -165,7 +151,9 @@ function createText(){
 
 function create() {
     this.game.stage.backgroundColor = '#23272b';
+
     game._tweens = {};
+    createText();
 
 
 
@@ -271,7 +259,6 @@ function finishCharging(){
 }
 
 function onDeviceReady() {
-    console.log('device ready');
-    $('#initBtn').remove();
+    // $('#initBtn').remove();
     window.addEventListener("batterystatus", onBatteryStatus, false);
 }
