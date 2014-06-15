@@ -9,9 +9,15 @@ function onBatteryStatus(info) {
     initGame();
 }
 
-document.ontouchmove = function(event) {
-    event.preventDefault();
-};
+document.addEventListener("touchstart", function(e) {
+    onStart(e);
+}, false);
+
+function onStart(touchEvent) {
+    if (navigator.userAgent.match(/Android/i)) {
+        touchEvent.preventDefault();
+    }
+}
 
 var config = {
     blinkSpeed: 2,
@@ -45,10 +51,10 @@ var graphics;
 var graphics2;
 
 function totalCircle(radius, sides) {
-    if(game.t2){
-       game.t2.setText(config.percent + "%"); 
+    if (game.t2) {
+        game.t2.setText(config.percent + "%");
     }
-    if(game.finished) return false;
+    if (game.finished) return false;
 
     if (graphics) graphics.destroy();
 
@@ -67,12 +73,12 @@ function totalCircle(radius, sides) {
     }
 
     config.progressText.text = config.percent + '%';
-    
-    
+
+
 }
 
 function chargeProgressCircle(radius, sides) {
-    if(game.finished) return false;
+    if (game.finished) return false;
     if (graphics2) graphics2.destroy();
 
     graphics2 = game.add.graphics(game.world.centerX, game.world.centerY + 50);
@@ -123,7 +129,7 @@ function newText(text) {
     }
 }
 
-function createText(){
+function createText() {
 
     var percentStyle = {
         font: "36px Roboto",
@@ -215,7 +221,7 @@ function update() {
                 config.chargeProgress = 0;
                 config.percent++;
 
-                if(config.percent >= 100){
+                if (config.percent >= 100) {
                     finishCharging();
                 } else {
                     totalCircle(config.circleWidth, 100);
@@ -233,11 +239,11 @@ function update() {
             game._tweens.frameBlink.isRunning = false;
             game.frame.alpha = 1;
 
-            if(game.t1 && !game.finished){
+            if (game.t1 && !game.finished) {
                 var randomSwipinText = config.notSwipinArray[Math.floor(Math.random() * config.notSwipinArray.length)];
                 newText(randomSwipinText);
             }
-            
+
             // game._tweens.frameBlink.pause();
         }
     }
@@ -254,7 +260,7 @@ function initGame() {
     });
 }
 
-function finishCharging(){
+function finishCharging() {
     game.t2.setText('100%')
     newText('You battery is happy!\n Visit app later!');
     graphics.alpha = 0;
