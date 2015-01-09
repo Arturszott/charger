@@ -1,0 +1,76 @@
+{"frames": [
+
+{
+	"filename": "baner0000.png",
+	"frame": {"x":2,"y":2,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0001.png",
+	"frame": {"x":2,"y":104,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0002.png",
+	"frame": {"x":484,"y":2,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0003.png",
+	"frame": {"x":484,"y":104,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0004.png",
+	"frame": {"x":966,"y":2,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0005.png",
+	"frame": {"x":1448,"y":2,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0006.png",
+	"frame": {"x":966,"y":104,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+},
+{
+	"filename": "baner0007.png",
+	"frame": {"x":1448,"y":104,"w":480,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":480,"h":100},
+	"sourceSize": {"w":480,"h":100}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "charger_fisherman.png",
+	"format": "RGBA8888",
+	"size": {"w":1930,"h":206},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:0e6898ce0bc01de2822efe503758c6ac:e76269190b6b88c63fb1d324fa161bad:06b34fd468a6f8477dedcc28fd455e25$"
+}
+}

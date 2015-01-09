@@ -24,7 +24,7 @@ function onStart(touchEvent) {
 var config = {
     blinkSpeed: 2,
     swipeSpeed: 0,
-    chargeSpeed: 9,
+    chargeSpeed: 15,
     percent: batterylvl || 67,
     chargeProgress: 0,
     circleWidth: 130,
@@ -40,7 +40,9 @@ var config = {
         "It's getting hotter..."
     ],
     notSwipinArray: [
-        'Your battery is sad.'
+        'Your battery is sad.',
+        'Never... stop.. swipin!'
+
     ],
     coords: null
 
@@ -60,7 +62,7 @@ function totalCircle(radius, sides) {
 
     if (graphics) graphics.destroy();
 
-    graphics = game.add.graphics(game.world.centerX, game.world.centerY + 50);
+    graphics = game.add.graphics(game.world.centerX, game.world.centerY);
     graphics.lineStyle(2, 0x4f5255, 1);
 
     if (sides < 3) return;
@@ -83,7 +85,7 @@ function chargeProgressCircle(radius, sides) {
     if (game.finished) return false;
     if (graphics2) graphics2.destroy();
 
-    graphics2 = game.add.graphics(game.world.centerX, game.world.centerY + 50);
+    graphics2 = game.add.graphics(game.world.centerX, game.world.centerY);
     graphics2.lineStyle(2, 0x4f5255, 1);
 
     if (sides < 3) return;
@@ -100,10 +102,11 @@ function chargeProgressCircle(radius, sides) {
 
 /////////////////// PRELOAD ///////////////////////
 function preload() {
-    game.load.spritesheet('frame', 'assets/frame.png', 130, 61, 4);
-    game.load.image('hand', 'assets/swipe.png', 119, 72);
-}
-/////////////////// GAME CREATION ///////////////////////
+        game.load.spritesheet('frame', 'assets/frame.png', 130, 61, 4);
+        game.load.image('hand', 'assets/swipe.png', 119, 72);
+        game.load.atlas('fisherman_pack', 'assets/charger_fisherman.png', 'assets/charger_fisherman.json');
+    }
+    /////////////////// GAME CREATION ///////////////////////
 
 function tweenBlink(obj, speed) {
     return game.add.tween(obj).to({
@@ -139,7 +142,7 @@ function createText() {
         align: "center"
     };
 
-    game.t2 = game.add.text(game.world.centerX, game.world.centerY - 30, '', percentStyle);
+    game.t2 = game.add.text(game.world.centerX, game.world.centerY - 70, '', percentStyle);
     game.t2.setText(config.percent + "%");
     game.t2.anchor.setTo(0.5, 0.5);
 
@@ -163,30 +166,43 @@ function createText() {
 }
 
 function create() {
-    this.game.stage.backgroundColor = '#23272b';
+        this.game.stage.backgroundColor = '#23272b';
 
-    game._tweens = {};
-    createText();
+        game._tweens = {};
+        createText();
 
 
 
-    totalCircle(config.circleWidth, 100);
-    chargeProgressCircle(config.circleWidth + 20, 100)
+        totalCircle(config.circleWidth, 100);
+        chargeProgressCircle(config.circleWidth + 20, 100)
 
-    // battery frame image
-    var frame = this.game.add.sprite(game.world.centerX, game.world.centerY + 50, 'frame');
+        var banner2 = game.add.sprite(this.game.width / 2, this.game.height, 'fisherman_pack');
+        var banner = game.add.sprite(this.game.width / 2, this.game.height, 'fisherman_pack');
 
-    frame.animations.add('charge');
-    frame.anchor.setTo(0.5, 0.5);
-    frame.alpha = 0;
+        banner.animations.add('swim', Phaser.Animation.generateFrameNames('baner', 0, 7, '.png', 4), 10, true, false);
+        banner.animations.play('swim');
 
-    game.frame = frame;
+        banner.anchor.setTo(0.5, 1);
+        banner2.anchor.setTo(0.5, 1);
+        banner.inputEnabled = true;
+        banner.events.onInputDown.add(function() {
+            window.open("market://details?id=com.fishermangame", '_system');
+        }, this);
 
-    // blink baterry frame
-    game._tweens.frameBlink = tweenBlink(frame);
-    game._tweens.frameBlink.pause();
-}
-/////////////////// GAME LOOP ///////////////////////
+        // battery frame image
+        var frame = this.game.add.sprite(game.world.centerX, game.world.centerY, 'frame');
+
+        frame.animations.add('charge');
+        frame.anchor.setTo(0.5, 0.5);
+        frame.alpha = 0;
+
+        game.frame = frame;
+
+        // blink baterry frame
+        game._tweens.frameBlink = tweenBlink(frame);
+        game._tweens.frameBlink.pause();
+    }
+    /////////////////// GAME LOOP ///////////////////////
 function getDist(position, target) {
     return Math.sqrt(Math.pow((target.x - position.x), 2) + Math.pow((target.y - position.y), 2));
 }
@@ -206,7 +222,7 @@ function update() {
 
         if (distance > 0) {
             config.swipeSpeed = distance * 0.0015;
-            if(game.notSwipinTimeout){
+            if (game.notSwipinTimeout) {
                 clearTimeout(game.notSwipinTimeout);
             }
             config.chargeProgress = config.chargeProgress + config.swipeSpeed * config.chargeSpeed;
@@ -267,7 +283,7 @@ function initGame() {
 
 function finishCharging() {
     game.t2.setText('100%')
-    newText('You battery is happy!\n Visit app later!');
+    newText('You battery is happy!\n Now, try Fisherman.');
     graphics.alpha = 0;
     graphics.destroy(true);
     graphics2.destroy(true);
