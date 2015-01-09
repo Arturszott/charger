@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
-<widget xmlns     = "http://www.w3.org/ns/widgets"
-        xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.arturszott.charger"
-        version   = "1.0.2">
+<widget id="com.arturszott.charger" version="1.0.0">
 
     <name>Super charger</name>
 
@@ -12,9 +9,11 @@
         Yo dawg, dat app will charge ya battery!
     </description>
 
-    <author href="http://phonegap.com" email="support@phonegap.com">
+    <author href="http://arturszott.com" email="me@arturszott.com">
         Lipne Appki
     </author>
+
+    <content src="index.html" />
 
     <!--
         If you do not want any permissions to be added to your app, add the
